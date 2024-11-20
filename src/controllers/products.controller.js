@@ -22,8 +22,25 @@ exports.getProductById = async (req,res)=>{
         // res.status(200).json({ok:true, product})
     } catch (error) {
         console.log(error)
-        console.log('hubo un error')
-
-        
+        console.log('hubo un error')        
     }
+}
+
+exports.addProduct = async (req, res) => {
+    try { 
+        let product = req.body
+        let newProduct = new productModel(product)
+        await newProduct.save()
+        res.status(201).json(newProduct) 
+    } catch (error) {
+        console.log(error)
+        console.log('hubo un error') 
+    }
+}
+exports.borrarProducto = async (req, res) => {
+    let findProduct = req.params.id
+    let product = await productsModel.findById(id)
+          if (!product) res.status(400).send({ error: "No se encuentra ningun producto" })
+            let deleteProduct = await productsModel.findOneAndDelete({ _id: id })
+            res.status(200).json(deleteProduct); 
 }
