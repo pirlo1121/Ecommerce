@@ -7,7 +7,7 @@ require('dotenv').config();
 // json es express
 app.use( express.json() )
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3000
 conectionDB()
 
 

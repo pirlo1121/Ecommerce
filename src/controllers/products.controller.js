@@ -29,18 +29,36 @@ exports.getProductById = async (req,res)=>{
 exports.addProduct = async (req, res) => {
     try { 
         let product = req.body
-        let newProduct = new productModel(product)
-        await newProduct.save()
-        res.status(201).json(newProduct) 
+        let productname = req.body.name
+        let productprice = req.body.price
+        const productoExistente = await productsModel.findOne({ name: productname, price: productprice });
+        if (productoExistente) {
+            productoExistente.stock += 1;
+            await productoExistente.save();
+            return res.status(200).json({ message:'Producto ya esta en la lista, stock incrementado.'})
+        } else {
+            let newProduct = new productsModel(product)
+            await newProduct.save()
+            res.status(201).json(newProduct)   
+        }   
     } catch (error) {
         console.log(error)
         console.log('hubo un error') 
     }
 }
 exports.borrarProducto = async (req, res) => {
-    let findProduct = req.params.id
-    let product = await productsModel.findById(id)
-          if (!product) res.status(400).send({ error: "No se encuentra ningun producto" })
-            let deleteProduct = await productsModel.findOneAndDelete({ _id: id })
+    try { 
+        let findProduct = req.params.id
+        if (findProduct.length === 24) {
+            let product = await productsModel.findById(findProduct)
+            if (!product) res.status(400).send({ error: "No se encuentra ningun producto"})
+            let deleteProduct = await productsModel.findOneAndDelete({ _id: findProduct})
             res.status(200).json(deleteProduct); 
+        } else {
+            res.send("Id invalida")
+        }
+    } catch (error) {
+        console.log(error)
+        console.log({error: "Ha ocurrido un error comunicate con el admi"})
+    }         
 }

@@ -4,7 +4,7 @@ const link = process.env.DB_URI
 
 
 const conectionDB = async ()=>{
-    console.log('hhhhh')
+
     try {
         await mongoose.connect(link)
         console.log('conectado a la base de datos')

@@ -14,7 +14,8 @@ const productsModel = mongoose.Schema({
     stock: {
         type: Number,
         required: true
-    }
+    }, 
+    
 }, {
     versionkey: false
 })
