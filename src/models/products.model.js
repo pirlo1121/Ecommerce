@@ -19,5 +19,16 @@ const productsModel = mongoose.Schema({
 }, {
     versionkey: false
 })
+
+/*
+{
+    "name": "computador",
+    "price": 300000, 
+    "description": computador marca hp tactil,
+    "stock": 3
+}
+*/
+
+
 // verificar que en mongoose se cree con una sola "s";
 module.exports = mongoose.model('products', productsModel)

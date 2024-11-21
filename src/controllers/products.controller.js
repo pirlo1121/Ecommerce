@@ -16,10 +16,10 @@ exports.getProducts = async (req, res)=>{
 exports.getProductById = async (req,res)=>{
     try {
         const id = req.params.id
-        res.send(`el producto es: ${id}`)
-        // const product = await productsModel.findOne({_id: id})
-        // if(!product) res.send('no se encontró el producto')
-        // res.status(200).json({ok:true, product})
+        if (id.length != 24) res.send ('Id invalida')
+        const product = await productsModel.findOne({_id: id})
+        if(!product) res.send('no se encontró el producto')
+        res.status(200).json({ok:true, product})
     } catch (error) {
         console.log(error)
         console.log('hubo un error')        
