@@ -62,3 +62,16 @@ exports.borrarProducto = async (req, res) => {
         console.log({error: "Ha ocurrido un error comunicate con el admi"})
     }         
 }
+
+exports.category = async (req, res)=>{
+    try {
+        const category = req.params.name
+        const productsCategory = await productsModel.find({name: category});
+        return res.status(200).json({ok: true, productsCategory})
+
+    } catch (error) {
+        console.log(error)
+        console.log('hubo un error al obtener los productos')
+    }
+}
+
